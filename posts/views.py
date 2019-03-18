@@ -30,3 +30,27 @@ def project(request):
         form = ProjectForm()
 
     return render(request, 'profile/uploadproject.html', {'form':form})
+
+@login_required(login_url='/accounts/login')
+def project_review(request, project_id):
+    project = Project.get_project(project_id)
+    
+    reviews = Reviews.get_reviews(project_id)
+   
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            design = form.cleaned_data['design']
+            usability = form.cleaned_data['usability']
+            content = form.cleaned_data['content']
+            review = form.save(commit=False)
+            review.project = project
+            review.user = request.user
+            review.design = design
+            review.usability = usability
+            review.content = content
+            review.save()
+            return redirect('project_review', project_id=project_id)
+    else:
+        form = ReviewForm()
+        return render(request,'review.html',{'project':project ,'form':form, 'reviews':reviews})
