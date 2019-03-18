@@ -71,4 +71,36 @@ class Project(models.Model):
         all_content =list( map(lambda x: x.content, self.reviews.all()))
         return np.mean(all_content)
 
+class Reviews(models.Model):
+    RATING = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10'),
+    )
+    comment = HTMLField()
+    project = models.ForeignKey(Project,on_delete=models.CASCADE, related_name='reviews',null=True)
+    design = models.IntegerField(choices=RATING,default=0)
+    usability = models.IntegerField(choices=RATING,default=0)
+    content = models.IntegerField(choices=RATING,default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+
+    def save_review(self):
+        self.save()
+
+    @classmethod
+    def get_reviews(cls,id):
+        reviews = Reviews.objects.filter(project_id = id)
+        return reviews
+
+    @classmethod
+    def get_average(cls):
+        usability = Reviews.objects.all().aggregate(Avg('usability'))
+        return usability
     
