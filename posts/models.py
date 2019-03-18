@@ -1,5 +1,8 @@
 from django.db import models
-
+from tinymce.models import HTMLField
+from django.contrib.auth.models import User
+import numpy as np
+from django.db.models import Avg
 # Create your models here.
 
 class Profile(models.Model):
@@ -24,3 +27,48 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user=id).first()
         return profile
 
+class Project(models.Model):
+    photo = models.ImageField(upload_to ='prof_pictures/')
+    project_name = models.CharField(max_length = 100)
+    project_caption =  models.CharField(max_length = 100)
+    user_profile = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects', default="")
+
+    def save_project(self):
+        self.save()
+
+    def delete_project(self):
+        self.delete()
+
+    @classmethod
+    def search_project(cls,search_term):
+        projects = cls.objects.filter(project_name__icontains=search_term)
+        return projects
+
+    @classmethod
+    def get_project(cls, id):
+        project = Project.objects.get(pk=id)
+        return project
+    
+    @classmethod
+    def get_images(cls):
+        projects = Project.objects.all()
+        return projects
+
+    @classmethod
+    def get_profile_image(cls,profile):
+        projects = Project.objects.filter(user_profile__pk=profile)
+        return projects
+
+    def design_rating(self):
+        all_designs =list( map(lambda x: x.design, self.reviews.all()))
+        return np.mean(all_designs)
+
+    def usability_rating(self):
+        all_usability =list( map(lambda x: x.usability, self.reviews.all()))
+        return np.mean(all_usability)
+
+    def content_rating(self):
+        all_content =list( map(lambda x: x.content, self.reviews.all()))
+        return np.mean(all_content)
+
+    
