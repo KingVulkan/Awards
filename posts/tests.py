@@ -40,3 +40,17 @@ class ProfileTest(TestCase):
         self.new_profile.save()
         profile = Profile.filter_by_id(1)
         self.assertTrue(profile== self.new_profile)
+
+class ReviewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(id =1,username='a')
+        self.new_project = Project(project_name='Food', project_caption='Delicious', user_profile=self.user)
+        self.new_review = Reviews(comment='You are awesome', user=self.user, project=self.new_project)
+   
+    
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_review,Reviews))
+
+    def test_get_review(self):
+        reviews = Reviews.get_reviews(1)
+        self.assertTrue(len(reviews)==0)
