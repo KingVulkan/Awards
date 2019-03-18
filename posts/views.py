@@ -73,3 +73,30 @@ def project_review(request, project_id):
     else:
         form = ReviewForm()
         return render(request,'review.html',{'project':project ,'form':form, 'reviews':reviews})
+
+@login_required(login_url='/accounts/login')
+def edit_profile(request):
+   
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            edit = form.save(commit=False)
+            edit.user = request.user
+            edit.save()
+            return redirect('profile', username=request.user)
+            
+    else:
+        form = ProfileForm()
+
+    return render(request, 'profile/editprofile.html', {'form':form, 'profile':profile})
+
+def search_project(request):
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        found_project = Project.search_project(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'search.html',{'message':message, 'projects':found_project})
+    else:
+        message = 'Enter term to search'
+        return render(request, 'search.html', {'message':message})
