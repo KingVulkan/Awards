@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="font-size:23px; font-weight: bolder;">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {% if projects%}
+            <h2 class="font2">Search results for {{message}}</h2>
+            {% else %}
+            <h2>Found O results: {{message}}</h2>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+        {% if projects %}
+            {% for project in projects %}
+            <div class="card" style="width: 18rem;border:hidden;">
+                <div class="container" style="height:350px;width:100%;padding:0px;">
+                <button class="btn btn-info"><a href="{% url 'project_review' project.id %}" style="color:black;">View Project </a></button>
+                <br>
+                <br>
+                <img class="card-img-top" src="{{project.photo.url}}" alt="Card image cap" class="img-responsive" style="height:400px;width:400px;border-radius:20px;">
+                
+                
+          
+              </div>
+            </div>
+        
+        {% empty%}
+        <div class="col-md-12 text-center">
+                <h4 class="font1">No results for {{message}} </h4>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}
