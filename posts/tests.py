@@ -22,4 +22,21 @@ class ProjectTestCase(TestCase):
         project = Project.get_project(1)
         self.assertTrue(project==self.new_project)
 
+class ProfileTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(id =1,username='a')
+        self.new_profile = Profile(user=self.user, bio='I am awesome', phone=1112222)
 
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_profile,Profile))
+
+    def test_get_profile(self):
+        self.new_profile.save()
+        profile = Profile.get_profile(1)
+        self.assertTrue(profile== self.new_profile)
+
+    
+    def test_filter_by_id(self):
+        self.new_profile.save()
+        profile = Profile.filter_by_id(1)
+        self.assertTrue(profile== self.new_profile)
