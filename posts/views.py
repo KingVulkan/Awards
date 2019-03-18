@@ -6,6 +6,25 @@ from .forms import RegistrationForm, ProjectForm, ReviewForm, ProfileForm
 from .models import Profile,Project,Reviews
 
 # Create your views here.
+ 
+def home(request):
+    images = Project.get_images()
+    
+
+    return render(request, 'home.html', {'images':images})
+    
+def register(request):
+    if request.method == 'POST':
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                redirect('login.html')
+    else:
+        form=RegistrationForm()
+        return render(request, 'registration/registration_form.html', {'form':form})
+
 
 def profile(request, username):
     profile = User.objects.get(username=username)
