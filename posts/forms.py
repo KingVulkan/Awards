@@ -9,6 +9,11 @@ class ProjectForm(forms.ModelForm):
        
         exclude = ['user_profile']
 
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Reviews
+        exclude = ['user','project','user_rating']
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:
