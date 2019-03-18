@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ form.media }}
+<div class="container-fluid" style="background-color:snow;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-5" style="font-size: 23px;">
+                    {% if profile_info.profile_photo %}
+                    <img class="avatar" src="{{profile_info.profile_photo.url}}" alt="profile-photo"
+                    style="vertical-align: middle;width: 180px;height: 180px;border-radius: 60%;">
+                    {% endif %}
+                    {{ profile.username }}
+                </div>
+                
+                <div class="col-md-5" style="font-size: 18px;">
+                    {% if profile.username == user.username %}
+                    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+                    <a data-toggle="modal" data-target="#settings"><i class="fa fa-cog fa-2x"></i></a>
+                    {% else %}
+                    <a href="#" class="btn btn-primary">Follow</a>
+                    
+                    {% endif %}
+                    <br>
+                    <br>
+                    {{projects|length}} Posts
+                   
+                    <p class="font3">BIO: {{profile_info.bio}}</p>
+                    <p>CONTACT: {{profile_info.phone}}</p>
+            
+                    {% if profile.username == user.username %}
+                    <p><a href="{% url 'upload_project'%}">Add Project</a></p>
+                    {% endif %}
+                </div>   
+
+                    </div>                          
+                </div>
+            </div>
+        </div>     
+    </div>
+</div>
+                
+                
+                    
+                               
+    <hr>
+    <div class="container-fluid"  style="background-color: whitesmoke">
+        <div class="row">
+            {% for proj in projects %}
+            <div class="col-md-4">
+                <img src="{{proj.photo.url}}" alt="Image" style="height:400px;width:400px;border-radius:20px;" class="img-responsive">
+                <h3>
+                    <a data-toggle="modal" data-target="#" style="font-size:40px; color: rgb(62, 235, 235);;text-transform: capitalize; text-align:center; text-decoration: underline; font-family:'Segoe UI';">{{proj.name}}</a>
+                </h3>
+               
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <h2>Profile has no projects</h2>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    
+<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body"><ul class="list-group">
+            {% if profile.username == user.username %}
+            <li class="list-group-item text-center"><a href="">Edit Profile</a></li>
+            {% endif %}
+            <li class="list-group-item text-center"><a href="/logout/">Log Out</a></li>
+            <li class="list-group-item text-center"><a data-dismiss="modal">Cancel</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
