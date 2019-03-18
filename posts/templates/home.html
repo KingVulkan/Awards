@@ -9,10 +9,10 @@
 </head>
 <body>
     <div class="container-fluid" style="background-color:whitesmoke;">
-        <div class="jumbotron" style="background-image: url('static/back2.jpg'); background-size:cover;">
+        <div class="jumbotron" style="background-image: url(https://images.pexels.com/photos/74942/plant-prize-shelves-74942.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500); background-size:contain;">
             
-            <p class="text-center" style="font-weight:bolder;font-style: italic;font-size:27px;">The awards for design,creativity and innovation for designers</p>
-            <div style="float:right;">
+            <p class="text-center" style="font-weight:bolder;font-style: italic;font-size:27px;">Award your projects here.</p>
+            <!-- <div style="float:right;">
                     <a href="#" target="_blank" class="col dark-gray width-120">
                             <i class="fab fa-facebook" style="font-size:23px;margin-left:10px;"></i>
                     </a>
@@ -25,8 +25,8 @@
                             <i class="fab fa-instagram" style="font-size:23px;margin-left:15px;"></i>
                     </a>
 
-            </div>
-            <h1 class="text-center" style="font-weight:bolder;font-style: italic; text-decoration: underline;" >PROJECTS</h1>
+            </div> -->
+            <h1 class="text-center" style="font-weight:bolder;font-family: 'Montserrat', sans-serif;" >Projects</h1>
                 
             </div>
             <div class="container-fluid">
@@ -46,7 +46,7 @@
                               
                    </div>
                    </div>
-                        <div style="font-weight:bold;font-style: italic;">
+                        <div style="font-weight:bold;font-family: 'Montserrat', sans-serif;">
                         <p><span style="color:rgb(38, 38, 90);">Project Name:</span> {{img.project_name}}</p>
                         
                         {% autoescape on %}
@@ -54,14 +54,14 @@
                         {% endautoescape%}
                         
 
-                        <a href="{% url 'project_review' project_id=img.id %}"><i class="fas fa-comment"></i>RATE PROJECT</a>
+                        <a href="{% url 'project_review' project_id=img.id %}"><i class="fas fa-comment"></i>Rate project</a>
                         </div>
                         <br>
                         <hr>
                    
     
                             {% empty %}
-                            <h2>NO IMAGES. FOLLOW OTHERS TO SEE IMAGES.</h2>
+                            <h2>Upload a project to view it here.</h2>
     
                             
                         

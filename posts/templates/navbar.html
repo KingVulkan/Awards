@@ -5,7 +5,7 @@
       
       <ul class="nav navbar-nav navbar-left">
         <li>
-            <a class="navbar-brand" href="/">MANOWS AWARDS</a>
+            <a class="navbar-brand" href="/">Manow's awards</a>
         </li>
         <li>
             <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search' %}" style="margin-top:5px;">
@@ -24,7 +24,7 @@
         {% if user.is_authenticated %}
         <li>
             <a class="nav-link"href="/logout" style="font-size:25px;">
-                LOG OUT |
+                Logout |
             </a>
         </li>
         <li class="nav-item" style="margin-top:-10px;">
@@ -32,10 +32,10 @@
         </li>
         {% else %}
         <li>
-            <a href="accounts/register"><span class="glyphicon glyphicon-user"> </span> REGISTER |</a>
+            <a href="accounts/register"><span class="glyphicon glyphicon-user"> </span> Register |</a>
         </li>
         <li>
-            <a href="accounts/login">LOGIN <span class="glyphicon glyphicon-log-in"></a>
+            <a href="accounts/login">Login <span class="glyphicon glyphicon-log-in"></a>
         </li>
             
             
