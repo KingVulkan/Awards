@@ -19,10 +19,9 @@
                     <img src="{{project.photo.url}}" alt="Image" class="img-responsive" style="height:400px;width:400px;border-radius:20px;">
                     <p>{{image.project_caption}} </p>
                     <button class="btn btn-success">Number of Votes {{ project.reviews.count| floatformat  }}</button>
-                    <button class="btn btn-primary">design {{ project.design_rating| floatformat  }}</button>
-                    <button class="btn btn-info">usability {{ project.usability_rating| floatformat  }}</button>
-                    <button class="btn btn-danger">content {{ project.content_rating| floatformat  }}</button>
-
+                    <button class="btn btn-primary">Design {{ project.design_rating| floatformat  }}</button>
+                    <button class="btn btn-info">Usability {{ project.usability_rating| floatformat  }}</button>
+                    <button class="btn btn-danger">Content {{ project.content_rating| floatformat  }}</button>
                     <hr>
                     
                     {% for review in reviews %}
@@ -30,7 +29,7 @@
                                 <div style="font-size:20px;">
                                     {% if project.id == review.project.id%}   
                                         <p><span style="color:rgb(38, 38, 90);">Posted By: </span> <a href="{% url 'profile' username=review.user.username %}">{{review.user.username}}</a></p> 
-                                        <p><span style="color:rgb(38, 38, 90);">Comment: </span> {{review.comment}}</p>
+                                        <p><span style="color:rgb(38, 38, 90);">Comment: </span> {{review.comment}} </p>
                                         <p><span style="color:rgb(38, 38, 90);">Design: </span> {{review.design}} </p>
                                         <p><span style="color:rgb(38, 38, 90);">Usability: </span> {{review.usability}} </p>
                                         <p><span style="color:rgb(38, 38, 90);">Content: </span> {{review.content}} </p>
