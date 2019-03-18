@@ -1,0 +1,99 @@
+{% extends 'base.html'%}
+{% load bootstrap3%}
+
+{% block content%}
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+   
+
+</head>
+<body>
+    <div class="container-fluid" style="background-color:whitesmoke;">
+        <div class="jumbotron" style="background-image: url('static/back2.jpg'); background-size:cover;">
+            
+            <p class="text-center" style="font-weight:bolder;font-style: italic;font-size:27px;">The awards for design,creativity and innovation for designers</p>
+            <div style="float:right;">
+                    <a href="#" target="_blank" class="col dark-gray width-120">
+                            <i class="fab fa-facebook" style="font-size:23px;margin-left:10px;"></i>
+                    </a>
+                    
+                    <a href="#" target="_blank" class="col dark-gray width-120">
+                            <i class="fab fa-twitter" style="font-size:23px;margin-left:15px;"></i>
+                    </a>
+                    
+                    <a href="#" target="_blank" class="col dark-gray width-120">
+                            <i class="fab fa-instagram" style="font-size:23px;margin-left:15px;"></i>
+                    </a>
+
+            </div>
+            <h1 class="text-center" style="font-weight:bolder;font-style: italic; text-decoration: underline;" >PROJECTS</h1>
+                
+            </div>
+            <div class="container-fluid">
+            <div class="row">
+               
+                <div class="col-md-4"></div>
+                <div class="col-md-6">
+                        {% for img in images%}
+                
+                    <div class="card" style="width: 18rem;border:hidden;" data-toggle="modal" data-target="#{{img.id}}">
+                            <a href="{% url 'profile' username=img.user_profile.username %}" style="font-weight:bolder;">{{img.user_profile.username}}</a>
+                            <img class="card-img-top" src="{{img.photo.url}}" alt="Card image cap" class="img-responsive" style="height:400px;width:400px;border-radius:20px;">
+                            <div class="card-body">
+                              <h5 class="card-title"></h5>
+                                   <!-- <a href="{% url 'profile' username=img.user_profile.username %}" style="font-weight:bolder;font-size:18px;">{{img.user_profile.username}}</a> -->
+
+                              
+                   </div>
+                   </div>
+                        <div style="font-weight:bold;font-style: italic;">
+                        <p><span style="color:rgb(38, 38, 90);">Project Name:</span> {{img.project_name}}</p>
+                        
+                        {% autoescape on %}
+                        <p><span style="color:rgb(38, 38, 90);">Caption: </span>  {{img.project_caption}}</p>
+                        {% endautoescape%}
+                        
+
+                        <a href="{% url 'project_review' project_id=img.id %}"><i class="fas fa-comment"></i>RATE PROJECT</a>
+                        </div>
+                        <br>
+                        <hr>
+                   
+    
+                            {% empty %}
+                            <h2>NO IMAGES. FOLLOW OTHERS TO SEE IMAGES.</h2>
+    
+                            
+                        
+                   
+                    {% endfor %} 
+                </div>
+                <div class="col-md-2"></div>
+                
+                    
+               
+                   
+                    
+                
+                
+                       
+                       
+                       
+
+                
+            </div>
+            </div>
+
+            
+
+            
+                
+
+        </div>
+
+
+
+
+</body>
+
+{% endblock%}
